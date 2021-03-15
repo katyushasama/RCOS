@@ -1,0 +1,20 @@
+docker: 
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo  https://download.docker.com/linux/rhel/docker-ce.repo
+sudo yum makecache fast
+sudo yum -y install docker-ce
+sudo systemctl start docker
+
+docker-compose:
+	build:
+		sudo yum install -y libffi-devel gcc make
+		wget -q https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Python3/3.9.2/build_python3.sh
+		bash build_python3.sh
+		make
+		sudo make install
+	python3 -V
+	Testing:
+		make test
+	Intsall:
+		sudo -H env PATH=$PATH pip3 install cryptography==3.3.2
+		sudo -H env PATH=$PATH pip3 install docker-compose==1.28.5
